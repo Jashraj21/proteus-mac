@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proteus 8 Professional - Schematic Capture - [Sample.pdsprj]</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- 1. macOS Clean Titlebar (Menus are moved to native macOS Extreme Top Bar) -->
+  <header class="mac-titlebar">
+    <div class="titlebar-left">
+      <div class="traffic-lights-spacer"></div>
+      <div class="app-brand" title="Proteus 8 Professional for macOS">
+        <span class="brand-logo">⚡</span>
+        <span class="brand-name">Proteus 8 Pro</span>
+      </div>
+    </div>
+
+    <!-- Center Document Name & Badge -->
+    <div class="titlebar-center">
+      <span id="titleDocName">Proteus 8 Professional — [Sample.pdsprj]</span>
+      <span class="title-badge">VSM CORE</span>
+    </div>
+
+    <!-- Right Actions / Presets & Samples -->
+    <div class="titlebar-actions">
+      <button class="apple-btn titlebar-quick-btn" id="btnQuickSamples" title="Open 684 Real Windows Proteus Projects">📂 684 Samples</button>
+      <select id="presetSelect" class="apple-select" title="Switch Circuit Demo Preset">
+        <option value="lcdHello">Preset 1: LM016L 16x2 LCD Display</option>
+        <option value="ledChaser">Preset 2: Knight Rider 8-LED Chaser</option>
+        <option value="buttonCounter">Preset 3: Push-Button 7-Seg Counter</option>
+        <option value="uartTerminal">Preset 4: Interactive UART Serial Echo</option>
+        <option value="waveformScope">Preset 5: Dual Waveform (Oscilloscope)</option>
+      </select>
+    </div>
+  </header>
+
+  <!-- 3. Proteus Fluid Command Toolbar -->
+  <section class="proteus-cmd-toolbar">
+    <button class="apple-btn" id="btnNew" title="New Design"><img src="assets/icons/final/tool_new.png" class="tool-icon-img" alt="New"></button>
+    <button class="apple-btn" id="btnOpen" title="Open Project (.json)"><img src="assets/icons/final/tool_open.png" class="tool-icon-img" alt="Open"></button>
+    <button class="apple-btn" id="btnSave" title="Save Project"><img src="assets/icons/final/tool_save.png" class="tool-icon-img" alt="Save"></button>
+    <div class="divider"></div>
+    <button class="apple-btn" id="btnCut" title="Cut"><img src="assets/icons/final/tool_cut.png" class="tool-icon-img" alt="Cut"></button>
+    <button class="apple-btn" id="btnCopy" title="Copy"><img src="assets/icons/final/tool_copy.png" class="tool-icon-img" alt="Copy"></button>
+    <button class="apple-btn" id="btnPaste" title="Paste"><img src="assets/icons/final/tool_paste.png" class="tool-icon-img" alt="Paste"></button>
+    <button class="apple-btn" id="btnUndo" title="Undo (Cmd+Z)"><img src="assets/icons/final/tool_undo.png" class="tool-icon-img" alt="Undo"></button>
+    <button class="apple-btn" id="btnRedo" title="Redo (Cmd+Shift+Z)"><img src="assets/icons/final/tool_redo.png" class="tool-icon-img" alt="Redo"></button>
+    <div class="divider"></div>
+    <!-- Authentic Windows Proteus View & Zoom Tools (ITB_VIEW) -->
+    <button class="apple-btn" id="btnPan" title="Center at Cursor / Pan View (F4)"><img src="assets/icons/final/tool_pan.png" class="tool-icon-img" alt="Pan"></button>
+    <button class="apple-btn" id="btnZoomIn" title="Zoom In (F6)"><img src="assets/icons/final/tool_zoom_in.png" class="tool-icon-img" alt="Zoom In"></button>
+    <button class="apple-btn" id="btnZoomOut" title="Zoom Out (F7)"><img src="assets/icons/final/tool_zoom_out.png" class="tool-icon-img" alt="Zoom Out"></button>
+    <button class="apple-btn" id="btnZoomAll" title="Zoom To View Entire Sheet (F8)"><img src="assets/icons/final/tool_zoom_all.png" class="tool-icon-img" alt="Fit"></button>
+    <button class="apple-btn" id="btnZoomArea" title="Zoom To Selected Area (Box Zoom)"><img src="assets/icons/final/tool_zoom_area.png" class="tool-icon-img" alt="Area"></button>
+    <div class="zoom-level-badge" id="zoomLevelBadge" title="Current Zoom Scale (Click to Reset 100%)">100%</div>
+    <button class="apple-btn active" id="btnGrid" title="Toggle Grid Mode"><img src="assets/icons/final/tool_grid.png" class="tool-icon-img" alt="Grid"></button>
+    <div class="divider"></div>
+    <button class="apple-btn" id="btnToggleIDE" title="Open Source Code Debugger">&lt;/&gt; Source</button>
+    <button class="apple-btn" id="btnToggleScope" title="Open Digital Oscilloscope"><img src="assets/icons/final/mode_instruments.png" class="tool-icon-img" alt="Scope"> Scope</button>
+    <button class="apple-btn" id="btnToggleTerminal" title="Open Virtual Terminal">&gt;_ Terminal</button>
+
+    <!-- Apple Segmented Control for Views with Windows Proteus Icons -->
+    <div class="apple-segmented-control">
+      <button class="seg-btn active" id="tabViewSchematic"><img src="assets/icons/final/view_schematic.png" class="tool-icon-img" alt=""> Schematic Capture</button>
+      <button class="seg-btn" id="tabViewPCB"><img src="assets/icons/final/view_pcb.png" class="tool-icon-img" alt=""> PCB Layout (ARES)</button>
+      <button class="seg-btn" id="tabView3D"><img src="assets/icons/final/view_3d.png" class="tool-icon-img" alt=""> 3D Visualizer</button>
+    </div>
+  </section>
+
+  <!-- 4. Proteus Main Workspace -->
+  <main class="proteus-workspace">
+    <!-- Left Sidebar: 14-Mode Strip + Overview + Devices ("P" & "L" buttons) + Orientation Bar -->
+    <aside class="proteus-left-panel">
+      <!-- 14-Mode Selector Strip with Authentic Windows Proteus Icons -->
+      <div class="mode-selector-strip">
+        <button class="mode-icon-btn active" data-mode="select" title="Selection Mode (S)"><img src="assets/icons/final/mode_select.png" class="mode-icon-img" alt="Selection"></button>
+        <button class="mode-icon-btn" data-mode="component" title="Component Mode (C)"><img src="assets/icons/final/mode_component.png" class="mode-icon-img" alt="Component"></button>
+        <button class="mode-icon-btn" data-mode="junction" title="Junction Dot Mode (J)"><img src="assets/icons/final/mode_junction.png" class="mode-icon-img" alt="Junction"></button>
+        <button class="mode-icon-btn" data-mode="wirelabel" title="Wire Label Mode (L)"><img src="assets/icons/final/mode_wirelabel.png" class="mode-icon-img" alt="Wire Label"></button>
+        <button class="mode-icon-btn" data-mode="text" title="Text Script Mode (T)"><img src="assets/icons/final/mode_text.png" class="mode-icon-img" alt="Text Script"></button>
+        <button class="mode-icon-btn" data-mode="buses" title="Buses Mode (B)"><img src="assets/icons/final/mode_buses.png" class="mode-icon-img" alt="Buses"></button>
+        <button class="mode-icon-btn" data-mode="subcircuit" title="Sub-circuit Mode"><img src="assets/icons/final/mode_subcircuit.png" class="mode-icon-img" alt="Sub-circuit"></button>
+        <button class="mode-icon-btn" data-mode="terminals" title="Terminals Mode (Power/GND)"><img src="assets/icons/final/mode_terminals.png" class="mode-icon-img" alt="Terminals"></button>
+        <button class="mode-icon-btn" data-mode="pins" title="Device Pins Mode"><img src="assets/icons/final/mode_pins.png" class="mode-icon-img" alt="Device Pins"></button>
+        <button class="mode-icon-btn" data-mode="graph" title="Graphs Mode"><img src="assets/icons/final/mode_graph.png" class="mode-icon-img" alt="Graphs"></button>
+        <button class="mode-icon-btn" data-mode="generators" title="Generators Mode"><img src="assets/icons/final/mode_generators.png" class="mode-icon-img" alt="Generators"></button>
+        <button class="mode-icon-btn" data-mode="probes" title="Voltage Probe Mode"><img src="assets/icons/final/mode_probes.png" class="mode-icon-img" alt="Voltage Probe"></button>
+        <button class="mode-icon-btn" data-mode="instruments" title="Virtual Instruments Mode"><img src="assets/icons/final/mode_instruments.png" class="mode-icon-img" alt="Instruments"></button>
+        <button class="mode-icon-btn" data-mode="graphics2d" title="2D Graphics Mode"><img src="assets/icons/final/mode_graphics2d.png" class="mode-icon-img" alt="2D Graphics"></button>
+      </div>
+
+      <!-- Devices Selector & Overview Mini-Map -->
+      <div class="devices-column">
+        <div class="overview-box">
+          <div class="overview-title" id="overviewBoxTitle">OVERVIEW (MINI-MAP)</div>
+          <canvas id="overviewCanvas" width="200" height="95"></canvas>
+        </div>
+
+        <div class="devices-header">
+          <span id="devicesHeaderTitle">DEVICES</span>
+          <div class="pl-buttons" id="plButtons">
+            <button id="btnPickDevices" class="btn-p" title="Pick Devices from Library (P)">P</button>
+            <button id="btnLibManager" class="btn-l" title="Library Manager (L)">L</button>
+          </div>
+        </div>
+
+        <div id="devicesList" class="devices-list"></div>
+
+        <!-- Authentic Windows Proteus Orientation & Mirror Toolbar -->
+        <div class="orientation-bar" id="orientationBar">
+          <button class="orient-btn" id="btnRotCCW" title="Rotate Anti-Clockwise (+90°)"><img src="assets/icons/final/rot_ccw.png" class="orient-icon-img" alt="Rot CCW"></button>
+          <button class="orient-btn" id="btnRotCW" title="Rotate Clockwise (-90°)"><img src="assets/icons/final/rot_cw.png" class="orient-icon-img" alt="Rot CW"></button>
+          <div class="orient-angle-display" id="orientAngle">0°</div>
+          <button class="orient-btn" id="btnMirrorX" title="Horizontal Mirror (X-axis)"><img src="assets/icons/final/mirror_x.png" class="orient-icon-img" alt="Mirror X"></button>
+          <button class="orient-btn" id="btnMirrorY" title="Vertical Mirror (Y-axis)"><img src="assets/icons/final/mirror_y.png" class="orient-icon-img" alt="Mirror Y"></button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Center: Schematic / PCB / 3D Viewport -->
+    <section class="schematic-viewport">
+      <canvas id="schematicCanvas"></canvas>
+      <canvas id="pcbCanvas"></canvas>
+      <canvas id="view3dCanvas"></canvas>
+    </section>
+
+    <!-- 5. Apple-Styled Floating Windows -->
+
+    <!-- Floating Digital Oscilloscope -->
+    <div id="winScope" class="floating-window">
+      <div class="window-header-drag" data-drag="winScope">
+        <div class="mac-window-lights">
+          <span class="light-dot light-close" data-close="winScope"></span>
+          <span class="light-dot light-min"></span>
+          <span class="light-dot light-max"></span>
+        </div>
+        <span>Digital Oscilloscope — Tektronix 2-Channel</span>
+        <div style="width: 40px"></div>
+      </div>
+      <div class="scope-bezel">
+        <canvas id="scopeCanvas" width="440" height="230"></canvas>
+      </div>
+      <div class="scope-knobs-row">
+        <div class="knob-control">
+          <label>CH-A Volts/Div</label>
+          <select id="scopeVoltsA" class="apple-select">
+            <option value="0.5">0.5 V</option>
+            <option value="1.0" selected>1.0 V</option>
+            <option value="2.0">2.0 V</option>
+            <option value="5.0">5.0 V</option>
+          </select>
+        </div>
+        <div class="knob-control">
+          <label>CH-B Volts/Div</label>
+          <select id="scopeVoltsB" class="apple-select">
+            <option value="0.5">0.5 V</option>
+            <option value="1.0" selected>1.0 V</option>
+            <option value="2.0">2.0 V</option>
+            <option value="5.0">5.0 V</option>
+          </select>
+        </div>
+        <div class="knob-control">
+          <label>Trigger / Freeze</label>
+          <button id="scopeHold" class="apple-btn">Freeze (Hold)</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Virtual Serial Terminal -->
+    <div id="winTerminal" class="floating-window hidden">
+      <div class="window-header-drag" data-drag="winTerminal">
+        <div class="mac-window-lights">
+          <span class="light-dot light-close" data-close="winTerminal"></span>
+          <span class="light-dot light-min"></span>
+          <span class="light-dot light-max"></span>
+        </div>
+        <span>Virtual Terminal — RS232 (9600-8-N-1)</span>
+        <div style="width: 40px"></div>
+      </div>
+      <div id="terminalOutput" class="terminal-crt-body">--- PROTEUS VSM VIRTUAL TERMINAL (9600-8-N-1) ---
+</div>
+      <div class="terminal-input-row">
+        <input type="text" id="terminalInput" placeholder="Type serial command to send to RX...">
+        <button id="terminalSend" class="apple-btn" style="background:var(--apple-blue);color:#fff">Send</button>
+      </div>
+    </div>
+
+    <!-- Floating Source Code Debugger / IDE Window -->
+    <div id="winIDE" class="floating-window hidden">
+      <div class="window-header-drag" data-drag="winIDE">
+        <div class="mac-window-lights">
+          <span class="light-dot light-close" data-close="winIDE"></span>
+          <span class="light-dot light-min"></span>
+          <span class="light-dot light-max"></span>
+        </div>
+        <span>Source Code Debugger — [ATMEGA328P.asm]</span>
+        <div style="width: 40px"></div>
+      </div>
+      <div class="ide-toolbar-row">
+        <button id="btnAssemble" class="apple-btn" style="background:var(--apple-blue);color:#fff">⚡ Assemble &amp; Flash</button>
+        <span id="asmStatus" style="font-family:var(--font-mono);font-size:11.5px;color:var(--apple-green)">Ready</span>
+      </div>
+      <div class="ide-editor-container">
+        <textarea id="asmCode" spellcheck="false"></textarea>
+      </div>
+      <div class="ide-registers-pane">
+        <div style="font-size:10px;font-weight:700;color:var(--text-secondary)">CPU REGISTERS &amp; HARDWARE FLAGS</div>
+        <div class="reg-row">
+          <div class="reg-chip"><div class="lbl">ACC (A)</div><div id="regA" class="val">0x00</div></div>
+          <div class="reg-chip"><div class="lbl">IDX (X)</div><div id="regX" class="val">0x00</div></div>
+          <div class="reg-chip"><div class="lbl">PC</div><div id="regPC" class="val">0x0000</div></div>
+          <div class="reg-chip"><div class="lbl">SP</div><div id="regSP" class="val">0xFF</div></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-primary);font-family:var(--font-mono)">
+          <div>FLAGS: <span id="flagZ" style="color:var(--apple-green)">Z:0</span> <span id="flagC" style="color:var(--apple-green)">C:0</span> <span id="flagN" style="color:var(--apple-green)">N:0</span></div>
+          <div>CYCLES: <b id="cycleCount" style="color:var(--apple-blue)">0</b></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 6. Apple Bottom VCR Animation Control Bar -->
+  <footer class="proteus-bottom-bar">
+    <div class="vcr-controls">
+      <button id="btnPlay" class="vcr-btn btn-play active" title="Start / Resume Simulation (F5)"><img src="assets/icons/final/vcr_play.png" class="vcr-icon-img" alt="Play"></button>
+      <button id="btnStep" class="vcr-btn btn-step" title="Step by Step (F10)"><img src="assets/icons/final/vcr_step.png" class="vcr-icon-img" alt="Step"></button>
+      <button id="btnPause" class="vcr-btn btn-pause" title="Pause Simulation (F6)"><img src="assets/icons/final/vcr_pause.png" class="vcr-icon-img" alt="Pause"></button>
+      <button id="btnStop" class="vcr-btn btn-stop" title="Stop Simulation (F7)"><img src="assets/icons/final/vcr_stop.png" class="vcr-icon-img" alt="Stop"></button>
+      <div id="vcrTime" class="vcr-time-readout">ANIMATING: 00:00:00.000</div>
+    </div>
+
+    <div class="status-bar-info">
+      <span id="coordReadout">X = +2500, Y = +1800 th</span>
+      <span>Grid: 100 th</span>
+      <span>Engine: VSM 8.13 (macOS)</span>
+    </div>
+  </footer>
+
+  <!-- 7. Apple "Pick Devices" (P) Library Dialog Modal (With Windows Database) -->
+  <div id="pickDevicesModal" class="modal-overlay hidden">
+    <div class="apple-modal-dialog">
+      <div class="dialog-header">
+        <span>Pick Devices (5,788 Windows Proteus Components)</span>
+        <button id="btnCloseModal" class="apple-btn" style="padding:2px 8px">✕</button>
+      </div>
+
+      <div class="dialog-body">
+        <div class="dialog-left">
+          <input type="text" id="libSearch" class="search-keywords-input" placeholder="Search 5,788 devices (e.g. 74LS04, ATMEGA, 8051, PIC, LCD, LED, NE555, LM358)...">
+          <div id="libResultsTable" class="dialog-results-table"></div>
+        </div>
+
+        <div class="dialog-right-preview">
+          <div class="preview-box">
+            <div class="preview-title">SCHEMATIC MODEL</div>
+            <div id="previewSymbol" class="preview-graphic">🔲</div>
+          </div>
+          <div class="preview-box">
+            <div class="preview-title">PCB PACKAGE FOOTPRINT</div>
+            <div id="previewFootprint" class="preview-graphic" style="font-size:22px;color:var(--apple-green)">DIP-16</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dialog-footer">
+        <button id="btnModalCancel" class="apple-btn">Cancel</button>
+        <button id="btnModalOK" class="apple-btn" style="background:var(--apple-blue);color:#fff">Place Device</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. Real Windows Proteus Samples Browser Modal -->
+  <div id="winSamplesModal" class="modal-overlay hidden">
+    <div class="apple-modal-dialog">
+      <div class="dialog-header">
+        <span>Windows Proteus 8 Professional Samples (684 Real Projects)</span>
+        <button class="apple-btn close-modal-btn" data-modal="winSamplesModal" style="padding:2px 8px">✕</button>
+      </div>
+      <div class="dialog-body">
+        <div class="dialog-left" style="flex:1">
+          <input type="text" id="sampleSearchInput" class="search-keywords-input" placeholder="Search 684 sample circuits (8051, AVR, ARM7, Arduino, Cortex, Basic Stamp)...">
+          <div id="samplesListTable" class="dialog-results-table" style="max-height:380px"></div>
+        </div>
+      </div>
+      <div class="dialog-footer">
+        <button class="apple-btn close-modal-btn" data-modal="winSamplesModal">Close</button>
+        <button id="btnLoadSampleOK" class="apple-btn" style="background:var(--apple-blue);color:#fff">Load Selected Sample</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. Bill of Materials (BOM) Modal -->
+  <div id="bomModal" class="modal-overlay hidden">
+    <div class="apple-modal-dialog" style="height:480px">
+      <div class="dialog-header">
+        <span>Bill of Materials (BOM) Report</span>
+        <button class="apple-btn close-modal-btn" data-modal="bomModal" style="padding:2px 8px">✕</button>
+      </div>
+      <div class="dialog-body" style="flex-direction:column">
+        <div style="flex:1;overflow-y:auto;background:rgba(0,0,0,0.3);border-radius:8px">
+          <table class="modal-table-content" id="bomTable">
+            <thead>
+              <tr><th>Item</th><th>Designator</th><th>Device</th><th>Quantity</th><th>Package</th></tr>
+            </thead>
+            <tbody id="bomTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="dialog-footer">
+        <button class="apple-btn close-modal-btn" data-modal="bomModal">Close</button>
+        <button id="btnExportBOMCsv" class="apple-btn" style="background:var(--apple-blue);color:#fff">Download CSV</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. Design Rule Check (DRC) Modal -->
+  <div id="drcModal" class="modal-overlay hidden">
+    <div class="apple-modal-dialog" style="height:400px;width:600px">
+      <div class="dialog-header">
+        <span>Design Rule Check (DRC) Verification</span>
+        <button class="apple-btn close-modal-btn" data-modal="drcModal" style="padding:2px 8px">✕</button>
+      </div>
+      <div class="dialog-body" style="flex-direction:column">
+        <div id="drcResultsBody" class="modal-code-view" style="color:#f8fafc">
+Running Proteus Electrical Rule Check (ERC) & Design Rule Check (DRC)...
+Checking for unrouted nets...
+Checking for floating input pins...
+Checking for power supply conflicts...
+        </div>
+      </div>
+      <div class="dialog-footer">
+        <button class="apple-btn close-modal-btn" data-modal="drcModal">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. SPICE Netlist Viewer Modal -->
+  <div id="netlistModal" class="modal-overlay hidden">
+    <div class="apple-modal-dialog" style="height:480px;width:640px">
+      <div class="dialog-header">
+        <span>SPICE Netlist Viewer</span>
+        <button class="apple-btn close-modal-btn" data-modal="netlistModal" style="padding:2px 8px">✕</button>
+      </div>
+      <div class="dialog-body" style="flex-direction:column">
+        <div id="netlistCodeBody" class="modal-code-view">* Proteus SPICE Netlist Generator
+.TITLE Proteus 8 Design
+        </div>
+      </div>
+      <div class="dialog-footer">
+        <button class="apple-btn close-modal-btn" data-modal="netlistModal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden file input for opening projects -->
+  <input type="file" id="filePickerInput" accept=".json,.pdsprj" style="display:none">
+
+  <!-- Scripts in dependency order -->
+  <script src="js/mcu/cpu.js"></script>
+  <script src="js/mcu/assembler.js"></script>
+  <script src="js/mcu/examples.js"></script>
+  <script src="js/sim/audio.js"></script>
+  <script src="js/sim/components.js"></script>
+  <script src="js/sim/windows_proteus_db.js"></script>
+  <script src="js/sim/windows_proteus_samples.js"></script>
+  <script src="js/sim/circuit.js"></script>
+  <script src="js/instruments/oscilloscope.js"></script>
+  <script src="js/instruments/terminal.js"></script>
+  <script src="js/canvas/schematicCanvas.js"></script>
+  <script src="js/canvas/pcbCanvas.js"></script>
+  <script src="js/canvas/view3dCanvas.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

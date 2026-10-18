@@ -1,0 +1,23 @@
+{
+  "name": "proteus-desktop",
+  "version": "1.0.0",
+  "description": "Proteus 8 Professional for macOS - VSM & Circuit Studio",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "package": "bash scripts/build-mac-app.sh"
+  },
+  "keywords": [
+    "proteus",
+    "circuit-simulator",
+    "mcu-emulator",
+    "vsm",
+    "eda",
+    "macos"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^34.0.0"
+  }
+}
