@@ -30,6 +30,13 @@ plutil -replace CFBundleName -string "$APP_NAME" "$APP_BUNDLE/Contents/Info.plis
 plutil -replace CFBundleExecutable -string "$APP_NAME" "$APP_BUNDLE/Contents/Info.plist"
 plutil -replace CFBundleIdentifier -string "com.labcenter.proteus.studio" "$APP_BUNDLE/Contents/Info.plist"
 
+# Replace icon with authentic Proteus icon if available
+if [ -f "$SRC_DIR/src/assets/Proteus.icns" ]; then
+  cp "$SRC_DIR/src/assets/Proteus.icns" "$APP_BUNDLE/Contents/Resources/electron.icns"
+  cp "$SRC_DIR/src/assets/Proteus.icns" "$APP_BUNDLE/Contents/Resources/app.icns"
+  plutil -replace CFBundleIconFile -string "app.icns" "$APP_BUNDLE/Contents/Info.plist"
+fi
+
 # Ad-hoc sign for Apple Silicon macOS
 echo "==> Signing application bundle with codesign..."
 codesign --force --deep --sign - "$APP_BUNDLE"
